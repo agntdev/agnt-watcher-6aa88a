@@ -1,19 +1,49 @@
 [
   {
-    "name": "Manage Alerts",
+    "name": "Manage Alerts shows empty state",
     "steps": [
       {
+        "send": { "callback": "alerts:manage" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "View and modify active alert rules"
+              "text": "No alerts set yet — create one to get notified when prices move."
             }
           }
-        ],
-        "send": {
-          "callback": "alerts:manage"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "threshold alert start with empty watchlist shows add prompt",
+    "steps": [
+      {
+        "send": { "callback": "alert:threshold:start" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Add coins to your watchlist first, then create alerts for them."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "percent alert start with empty watchlist shows add prompt",
+    "steps": [
+      {
+        "send": { "callback": "alert:percent:start" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Add coins to your watchlist first, then create alerts for them."
+            }
+          }
+        ]
       }
     ]
   }

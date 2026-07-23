@@ -1,19 +1,73 @@
 [
   {
-    "name": "Add Coin",
+    "name": "Add Coin shows empty watchlist prompt",
     "steps": [
       {
+        "send": { "callback": "watchlist:add" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Your watchlist is empty — pick a coin below or search by name."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "watchlist search triggers input prompt",
+    "steps": [
+      {
+        "send": { "callback": "wl:search" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Open the watchlist management interface with add options"
+              "text": "Type a coin name (e.g. \"Polygon\" or \"Chainlink\") and I'll find it."
             }
           }
-        ],
-        "send": {
-          "callback": "watchlist:add"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "search with short query shows error",
+    "steps": [
+      {
+        "send": { "callback": "wl:search" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Type a coin name (e.g. \"Polygon\" or \"Chainlink\") and I'll find it."
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "a" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Type at least 2 characters to search."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "quick-add BTC completes",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:bitcoin:BTC" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          }
+        ]
       }
     ]
   }

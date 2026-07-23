@@ -1,13 +1,63 @@
 [
   {
-    "name": "/start replies with the welcome + main menu",
+    "name": "/start shows onboarding for new users",
     "steps": [
       {
         "send": { "text": "/start" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": {
+              "text": "👋 Welcome to CryptoWatch!\n\nFirst, pick your timezone so alerts fire at the right time:"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "timezone selection confirms",
+    "steps": [
+      {
+        "send": { "callback": "tz:UTC" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Timezone set to UTC.\n\nDefault quiet hours: 22:00–7:00 (no alerts during sleep). You can change this later in Settings."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "EST timezone selection confirms",
+    "steps": [
+      {
+        "send": { "callback": "tz:America/New_York" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Timezone set to America/New_York.\n\nDefault quiet hours: 22:00–7:00 (no alerts during sleep). You can change this later in Settings."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "back to main menu shows welcome",
+    "steps": [
+      {
+        "send": { "callback": "menu:main" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "👋 Welcome to CryptoWatch!\n\nTrack prices, set alerts, and never miss a move."
+            }
           }
         ]
       }
