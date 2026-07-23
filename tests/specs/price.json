@@ -1,19 +1,49 @@
 [
   {
-    "name": "/price",
+    "name": "/price without arguments shows usage hint",
     "steps": [
       {
+        "send": { "text": "/price" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Request current price for a specific ticker or entire watchlist"
+              "text": "Usage: /price BTC — or tap 💰 Price below to check your watchlist."
             }
           }
-        ],
-        "send": {
-          "text": "/price"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/price with invalid ticker shows error",
+    "steps": [
+      {
+        "send": { "text": "/price XYZINVALID" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Couldn't find \"XYZINVALID\". Try common tickers like BTC, ETH, SOL — or add it to your watchlist first."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "price:show with empty watchlist shows add prompt",
+    "steps": [
+      {
+        "send": { "callback": "price:show" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Your watchlist is empty — add some coins first."
+            }
+          }
+        ]
       }
     ]
   }

@@ -1,19 +1,81 @@
 [
   {
-    "name": "Settings",
+    "name": "Settings without profile shows start prompt",
     "steps": [
       {
+        "send": { "callback": "settings:main" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Configure quiet hours, cooldowns, and morning summary preferences"
+              "text": "Run /start to set up your profile first."
             }
           }
-        ],
-        "send": {
-          "callback": "settings:main"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "settings timezone submenu shows options",
+    "steps": [
+      {
+        "send": { "callback": "settings:timezone" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Pick your timezone:"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "settings quiet hours submenu shows options",
+    "steps": [
+      {
+        "send": { "callback": "settings:quiet" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "When should alerts be silenced?"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "settings cooldown submenu shows options",
+    "steps": [
+      {
+        "send": { "callback": "settings:cooldown" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Minimum time between repeated alerts for the same coin:"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "settings morning summary without profile shows start prompt",
+    "steps": [
+      {
+        "send": { "callback": "settings:morning" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Run /start to set up your profile first."
+            }
+          }
+        ]
       }
     ]
   }
